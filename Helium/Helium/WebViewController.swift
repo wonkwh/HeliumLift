@@ -145,7 +145,8 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             loadAlmostURL(homePage)
         } else {
             //loadURL(URL(string: "http://heliumlift.duet.to/start.html")!)
-            loadURL(URL(string: "http://heliumlift.bitballoon.com")!)
+//            loadURL(URL(string: "http://heliumlift.bitballoon.com")!)
+            loadURL(URL(string: "http://m.afreecatv.com/#/search/%EC%95%BC%EA%B5%AC%EC%A4%91%EB%A6%BD")!)
         }
     }
     
@@ -198,7 +199,12 @@ class WebViewController: NSViewController, WKNavigationDelegate {
                     modified += makeCustomStartTimeURL(urlString)
                 }
             }
-            
+
+            if urlString.contains("http://play.afreecatv.com"), modified.contains("embed") == false {
+                //http://play.afreecatv.com/afbaseball1/215276365/embed
+                modified =  "\(urlString)/embed"
+            }
+
             // To make embed youtube video autoplay
 //            if modified.hasPrefix("https://www.youtube.com/embed/") {
 //                if !modified.containsString("?autoplay=1") {
@@ -237,8 +243,9 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         //change?["new"]
         if object as! NSObject == webView && keyPath == "estimatedProgress" {
             if let changeValueKeyPair = change {
-            if let progress: Float = changeValueKeyPair[NSKeyValueChangeKey(rawValue: "new")] as? Float! {
-                let percent = progress * 100
+            if let progress = changeValueKeyPair[NSKeyValueChangeKey(rawValue: "new")] as? NSNumber {
+                let prog = progress.floatValue
+                let percent = prog * 100
                 var title = NSString(format: "Loading... %.2f%%", percent)
                 if percent == 100 {
                     title = "HeliumLift"
