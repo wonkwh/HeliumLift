@@ -36,8 +36,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         
         statusBarItem = statusBar.statusItem(withLength: -1)
         statusBarItem.menu = menuBarMenu
-        statusBarItem.image = NSImage(named: NSImage.Name(rawValue: "menuBar"))
-        
+        statusBarItem.image = NSImage(named: "menuBar")
+
         // Insert code here to initialize your application
         
         defaultWindow = NSApplication.shared.windows.first as NSWindow?
@@ -146,7 +146,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             (button ).state = NSControl.StateValue.off
         }
         sender.state = NSControl.StateValue.on
-        let value = sender.title.substring(to: sender.title.characters.index(sender.title.endIndex, offsetBy: -1))
+        let value = sender.title.substring(to: sender.title.index(sender.title.endIndex, offsetBy: -1))
         if let alpha = Int(value) {
             didUpdateAlpha(NSNumber(value: alpha as Int))
         }
